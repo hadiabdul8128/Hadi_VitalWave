@@ -1,0 +1,24 @@
+runtime: python311  # Specify the Python version
+entrypoint: gunicorn -b :$PORT main:app  # Replace 'app:app' with your actual application module and variable
+
+service: v2
+env_variables:
+  REDISHOST: '10.12.194.4'
+  REDISPORT: '6378'
+  # Environment variables can be defined here, if needed
+  SECRET_KEY: 'your_secret_key'
+  # For Firebase credentials, consider using Google Cloud Secret Manager instead of embedding directly
+
+automatic_scaling:
+  target_cpu_utilization: 0.6
+  min_instances: 1
+  max_instances: 5
+
+handlers:
+- url: /.*
+  script: auto
+
+vpc_access_connector:
+  name: "projects/bc-infection-detection/locations/us-central1/connectors/infect-detect-serverless"
+  # egress_setting: ALL_TRAFFIC # Optional, defaults to PRIVATE_RANGES_ONLY
+  # The setting above for egress is not needed as we only access firestore and memorystore

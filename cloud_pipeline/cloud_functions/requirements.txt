@@ -1,0 +1,16 @@
+functions-framework==3.*
+pandas
+firebase-admin>=5.0.0
+google-cloud-firestore
+google-cloud-storage
+google-auth>=1.0.0
+google-auth-oauthlib>=0.4.0
+protobuf>=3.0.0
+numpy
+scipy
+imufusion
+neurokit2
+heartpy
+setuptools
+pytz
+requests>=2.0.0

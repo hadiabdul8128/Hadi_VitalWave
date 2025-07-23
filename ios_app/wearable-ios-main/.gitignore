@@ -1,0 +1,31 @@
+# --- Xcode user-specific garbage ---
+**/xcuserdata/
+**/*.xcuserstate
+DerivedData/
+build/
+
+# --- Signing assets & secrets ---
+# Provisioning profiles
+*.mobileprovision
+
+# Certificates / keys
+*.p12
+*.p8
+*.cer
+*.pem
+*.key
+
+# Fastlane / Match sensitive files
+fastlane/*.json
+fastlane/*.p12
+fastlane/*.mobileprovision
+fastlane/README.md  # often contains team info
+
+# Firebase / AWS / other service configs
+GoogleService-Info.plist
+firebase_app_id_file.json
+amplifyconfiguration.json
+*.xcconfig          # if it holds secrets; otherwise commit a *.sample.xcconfig
+.env
+.env.*
+Secrets.*           # e.g., Secrets.swift, Secrets.plist

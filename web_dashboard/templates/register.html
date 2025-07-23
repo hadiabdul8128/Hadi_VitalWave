@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../static/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../static/css/demo_1/style.css" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" />
+
+    <!-- Load Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-auth.js"></script>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "",
+            authDomain: "",
+            databaseURL: "",
+            projectId: "",
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: ""
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth">
+                <div class="row flex-grow">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auth-form-light text-left p-5">
+                            <h3>Register</h3>
+                            <h6 class="font-weight-light">Create an account to continue.</h6>
+                            <form class="pt-3" onsubmit="registerUser(event)">
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-lg" id="email"
+                                        placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-lg" id="password"
+                                        placeholder="Password">
+                                </div>
+                                <div class="mt-3">
+                                    <button type="submit"
+                                        class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Register</button>
+                                </div>
+                                <div class="text-center mt-4 font-weight-light">
+                                    Already have an account? <a href="/" class="text-primary">Login</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function registerUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Registration successful
+                    console.log('User registered:', userCredential.user);
+                    window.location.href = '/dashboard'; // Redirect after successful registration
+                })
+                .catch((error) => {
+                    console.error('Error registering new user:', error);
+                    alert('Error registering new user: ' + error.message); // Display error to user
+                });
+        }
+    </script>
+
+    <script src="../static/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../static/js/off-canvas.js"></script>
+    <script src="../static/js/hoverable-collapse.js"></script>
+    <script src="../static/js/misc.js"></script>
+</body>
+
+</html>

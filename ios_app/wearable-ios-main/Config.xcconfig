@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  carbonwatchuk
+//
+//  Created by Luke Redmore on 04/11/2024.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+VERSION = 1.4.2
+BUILD_NUMBER = 202412118
