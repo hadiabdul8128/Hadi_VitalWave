@@ -41,7 +41,7 @@ struct DeviceDetailView: View {
             }
             Section {
                 NavigationLink("Data Collected") {
-                    if let uid = authModel.user?.uid {
+                    if let uid = authModel.effectiveUid {
                         DeviceDataBrowser(uid: uid, deviceId: deviceDetails.id)
                     }
                 }

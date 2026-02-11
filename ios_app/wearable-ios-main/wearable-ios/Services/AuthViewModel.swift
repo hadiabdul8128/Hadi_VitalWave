@@ -81,6 +81,11 @@ final class AuthViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "cookies")
     }
     
+    /// UID for the current user; falls back to UserDefaults when in bypass mode (no real login)
+    var effectiveUid: String? {
+        user?.uid ?? UserDefaults.standard.string(forKey: "auth-uid")
+    }
+    
     /** Observe the user's authentication state and update when it changes */
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -89,11 +94,15 @@ final class AuthViewModel: ObservableObject {
             if let uid = user?.uid {
                 print("[AuthViewModel] User \(uid) signed in, setting UID")
                 UserDefaults.standard.set(uid, forKey: "auth-uid")
+            } else {
+                // Bypass: when backend is unavailable, skip login and use a dev UID so the app is usable
+                UserDefaults.standard.set("bypass-dev", forKey: "auth-uid")
             }
-            self.user = user
-            self.displayName = user?.email ?? ""
-            self.authenticationState = user == nil ? .unauthenticated : .authenticated
-            
+            Task { @MainActor in
+                self.user = user
+                self.displayName = user?.email ?? (user == nil ? "Bypass (offline)" : "")
+                self.authenticationState = .authenticated
+            }
         }
     }
     

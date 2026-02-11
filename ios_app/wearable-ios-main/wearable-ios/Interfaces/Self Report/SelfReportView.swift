@@ -107,7 +107,7 @@ struct SelfReportView: View {
                     }
                     Button ("Submit") {
                         Task {
-                            guard let uid = authModel.user?.uid else {
+                            guard let uid = authModel.effectiveUid else {
                                 errText = "No user logged in!"
                                 alert = true
                                 return

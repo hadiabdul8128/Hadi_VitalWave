@@ -47,7 +47,7 @@ struct WaypointsListView: View {
             .navigationTitle("Waypoints")
         }
         .onAppear {
-            waypointListener.listen(uid: authViewModel.user!.uid)
+            waypointListener.listen(uid: authViewModel.effectiveUid ?? "bypass-dev")
         }
         .onDisappear {
             waypointListener.stopListening()
